@@ -18,16 +18,24 @@
 ## 🧱 Архитектура проекта
 
 ## com.example.notesapp
-###│
-###├── data/
+### │
+
+### ├── data/
+
 ###│ ├── model/Note.kt
-###│ ├── dao/NoteDao.kt
-###│ └── db/AppDatabase.kt
-###│
-###├── viewmodel/NoteViewModel.kt
-###│
-###└── ui/
-###└── screen/NoteScreen.kt
+
+### │ ├── dao/NoteDao.kt
+
+### │ └── db/AppDatabase.kt
+
+### │
+### ├── viewmodel/NoteViewModel.kt
+
+### │
+### └── ui/
+
+### └── screen/NoteScreen.kt
+
 
 ## 🧩 Возможности
 
