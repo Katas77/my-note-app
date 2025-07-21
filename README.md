@@ -17,23 +17,16 @@
 - **Flow** — реактивное обновление UI
 ## 🧱 Архитектура проекта
 
-## com.example.notesapp
+com.example.notesapp
 ### │
-
 ### ├── data/
-
-###│ ├── model/Note.kt
-
+### │ ├── model/Note.kt
 ### │ ├── dao/NoteDao.kt
-
 ### │ └── db/AppDatabase.kt
-
 ### │
 ### ├── viewmodel/NoteViewModel.kt
-
 ### │
 ### └── ui/
-
 ### └── screen/NoteScreen.kt
 
 
