@@ -24,7 +24,6 @@ class NoteViewModel(private val noteDao: NoteDao) : ViewModel() {
     }
     fun search(title: String, content: String, isFavorite: Boolean = false): Flow<List<Note>> =
         noteDao.search(title, content, isFavorite)
-
     fun updateNote(note: Note) {
         viewModelScope.launch {
             noteDao.update(note)

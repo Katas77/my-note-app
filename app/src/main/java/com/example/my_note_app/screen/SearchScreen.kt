@@ -25,6 +25,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.example.my_note_app.data.model.Note
 import com.example.my_note_app.viewmodel.NoteViewModel
+
 @Composable
 fun SearchScreen(viewModel: NoteViewModel = viewModel(), navController: NavController) {
     var title by remember { mutableStateOf("") }
@@ -95,7 +97,6 @@ fun SearchScreen(viewModel: NoteViewModel = viewModel(), navController: NavContr
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 12.dp),
-            enabled = title.isNotBlank() || content.isNotBlank(),
             shape = RoundedCornerShape(12.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF006400))
         ) {
@@ -104,17 +105,17 @@ fun SearchScreen(viewModel: NoteViewModel = viewModel(), navController: NavContr
 
         val results by viewModel.search(title, content, isFavorite).collectAsState(initial = emptyList())
 
-        LazyColumn(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            items(results) { note ->
-                NoteItem(
-                    note = note,
-                    onEdit = { updatedNote ->
-                        viewModel.updateNote(updatedNote)
-                    },
-                    onDelete = { viewModel.deleteNote(it) }
-                )
+        if (showResults && results.isNotEmpty()) {
+            LazyColumn(modifier = Modifier.fillMaxWidth()) {
+                items(results) { note ->
+                    NoteItem(
+                        note = note,
+                        onEdit = { updatedNote ->
+                            viewModel.updateNote(updatedNote)
+                        },
+                        onDelete = { /* можно добавить позже */ }
+                    )
+                }
             }
         }
     }
@@ -127,9 +128,9 @@ fun NoteItem(
     onDelete: (Note) -> Unit = {}
 ) {
     var isEditing by remember { mutableStateOf(false) }
-    var title by remember { mutableStateOf(note.title) }
-    var content by remember { mutableStateOf(note.content) }
-    var isFavorite by remember { mutableStateOf(note.isFavorite) }
+    var title by remember(note) { mutableStateOf(note.title) }
+    var content by remember(note) { mutableStateOf(note.content) }
+    var isFavorite by remember(note) { mutableStateOf(note.isFavorite) }
 
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
@@ -143,7 +144,7 @@ fun NoteItem(
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             if (isEditing) {
-                // Режим редактирования
+                // 🔧 Режим редактирования
                 OutlinedTextField(
                     value = title,
                     onValueChange = { title = it },
@@ -198,13 +199,11 @@ fun NoteItem(
                     }
                 }
             } else {
-                // Режим просмотра
-                Text(text = title, style = MaterialTheme.typography.titleMedium)
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(text = content, style = MaterialTheme.typography.bodyMedium)
-                if (isFavorite) {
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(text = "⭐ Избранная", style = MaterialTheme.typography.labelSmall)
+                // 👁 Режим просмотра (оригинальный)
+                Text(text = note.title, style = MaterialTheme.typography.bodyLarge)
+                Text(text = note.content, style = MaterialTheme.typography.bodyMedium)
+                if (note.isFavorite) {
+                    Text(text = "✅ Избранная", style = MaterialTheme.typography.labelSmall)
                 }
             }
         }
