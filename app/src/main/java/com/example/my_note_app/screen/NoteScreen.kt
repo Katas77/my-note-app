@@ -18,10 +18,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.filled.Star
 import com.example.my_note_app.viewmodel.NoteViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.my_note_app.data.model.Note
 
 @Composable
-fun NoteScreen(viewModel: NoteViewModel = viewModel()) {
+fun NoteScreen(viewModel: NoteViewModel = viewModel(),navController: NavController) {
     var title by remember { mutableStateOf("") }
     var content by remember { mutableStateOf("") }
     var isFavorite by remember { mutableStateOf(false) }
@@ -98,6 +102,20 @@ fun NoteScreen(viewModel: NoteViewModel = viewModel()) {
             Text("Сохранить", color = Color.White)
         }
 
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(onClick = { navController.navigate("search") }
+        ,    modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 12.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6200EE))
+        )
+
+        {
+            Text("Перейти к поиску")
+        }
+
+
         // Раздел "Список заметок"
         Text(
             "Список заметок",
@@ -113,7 +131,7 @@ fun NoteScreen(viewModel: NoteViewModel = viewModel()) {
         ) {
             items(notes.size) { index ->
                 val note = notes[index]
-                NoteItem(
+                NoteItem2(
                     note = note,
                     onDelete = { viewModel.deleteNote(note) }
                 )
@@ -123,7 +141,7 @@ fun NoteScreen(viewModel: NoteViewModel = viewModel()) {
 }
 
 @Composable
-fun NoteItem(
+fun NoteItem2(
     note: Note,
     onDelete: () -> Unit
 ) {
@@ -181,5 +199,14 @@ fun NoteItem(
                 }
             }
         }
+    }
+}
+@Composable
+fun AppNavigation(viewModel: NoteViewModel = viewModel()) {
+    val navController = rememberNavController()
+
+    NavHost(navController = navController, startDestination = "home") {
+        composable("home") { NoteScreen(viewModel,navController) }
+        composable("search") { SearchScreen(viewModel,navController) }
     }
 }

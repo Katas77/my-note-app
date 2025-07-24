@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.my_note_app.data.dao.NoteDao
 import com.example.my_note_app.data.model.Note
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class NoteViewModel(private val noteDao: NoteDao) : ViewModel() {
@@ -21,6 +22,16 @@ class NoteViewModel(private val noteDao: NoteDao) : ViewModel() {
             noteDao.delete(note)
         }
     }
+    fun search(title: String, content: String, isFavorite: Boolean = false): Flow<List<Note>> =
+        noteDao.search(title, content, isFavorite)
+
+    fun updateNote(note: Note) {
+        viewModelScope.launch {
+            noteDao.update(note)
+        }
+    }
+
+
 }
 
 

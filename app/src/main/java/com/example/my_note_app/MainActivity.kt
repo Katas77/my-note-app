@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.my_note_app.data.db.AppDatabase
-import com.example.my_note_app.screen.NoteScreen
+import com.example.my_note_app.screen.AppNavigation
 import com.example.my_note_app.ui.theme.MynoteappTheme
 import com.example.my_note_app.viewmodel.NoteViewModel
 import com.example.my_note_app.viewmodel.NoteViewModelFactory
@@ -24,7 +24,9 @@ class MainActivity : ComponentActivity() {
                 val viewModel: NoteViewModel = viewModel(
                     factory = NoteViewModelFactory(noteDao)
                 )
-                NoteScreen(viewModel)
+                AppNavigation(
+                    viewModel
+                )
             }
         }
     }
