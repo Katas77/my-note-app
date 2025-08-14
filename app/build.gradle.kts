@@ -52,7 +52,7 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
 
     implementation("androidx.navigation:navigation-compose:2.9.2")
-    implementation("androidx.paging:paging-compose:3.4.0-alpha01")
+
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
 
     // Тестирование и инструменты

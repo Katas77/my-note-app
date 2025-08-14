@@ -1,5 +1,6 @@
 package com.example.my_note_app.data.model
 
+
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -11,3 +12,4 @@ data class Note(
     val content:String,
     val isFavorite:Boolean
 )
+

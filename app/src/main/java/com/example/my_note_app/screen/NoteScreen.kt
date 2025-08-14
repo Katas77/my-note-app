@@ -112,7 +112,7 @@ fun NoteScreen(viewModel: NoteViewModel = viewModel(),navController: NavControll
         )
 
         {
-            Text("Перейти к поиску")
+            Text("Перейти к поиску и редактированию")
         }
 
 
