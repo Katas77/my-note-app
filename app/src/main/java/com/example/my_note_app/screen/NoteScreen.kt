@@ -97,7 +97,7 @@ fun NoteScreen(viewModel: NoteViewModel = viewModel(),navController: NavControll
                 .padding(vertical = 12.dp),
             enabled = title.isNotBlank() && content.isNotBlank(),
             shape = RoundedCornerShape(12.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6200EE))
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1E88E5))
         ) {
             Text("Сохранить", color = Color.White)
         }
@@ -131,7 +131,7 @@ fun NoteScreen(viewModel: NoteViewModel = viewModel(),navController: NavControll
         ) {
             items(notes.size) { index ->
                 val note = notes[index]
-                NoteItem2(
+                NoteItem(
                     note = note,
                     onDelete = { viewModel.deleteNote(note) }
                 )
@@ -141,7 +141,7 @@ fun NoteScreen(viewModel: NoteViewModel = viewModel(),navController: NavControll
 }
 
 @Composable
-fun NoteItem2(
+fun NoteItem(
     note: Note,
     onDelete: () -> Unit
 ) {
